@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Towin's Foodtrip - Rider Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fffbe8 0%, #f5f8fb 100%);
+            min-height: 100vh;
+            color: #231f20;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            background: #fff;
+            border: 3px solid #231f20;
+            border-radius: 18px;
+            padding: 30px 25px;
+            box-shadow: 0 7px 29px #231f201f;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img img {
+            height: 80px;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-info h1 {
+            color: #b23b21;
+            font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+            font-size: 1.8em;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .logo-info p {
+            margin: 5px 0 0 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-details {
+            text-align: right;
+        }
+
+        .user-details h3 {
+            color: #333;
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .user-details p {
+            color: #999;
+            font-size: 0.85em;
+            margin: 3px 0 0 0;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(93deg, #fdc7c7 60%, #b23b21 100%);
+            color: #231f20;
+            border: 2.5px solid #231f20;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 700;
+        }
+
+        .logout-btn:hover {
+            background: #b23b21;
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .restaurant-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .restaurant-info h3 {
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .restaurant-info p {
+            margin: 4px 0 0 0;
+            font-size: 0.9em;
+            opacity: 0.95;
+        }
+
+        .restaurant-btn {
+            background: #fff;
+            color: #667eea;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .restaurant-btn:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #fdc7c7 0%, #fff7e3 100%);
+            border: 2px solid #b23b21;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #b23b21;
+            margin: 0 0 8px 0;
+            font-size: 0.9em;
+        }
+
+        .stat-card .number {
+            color: #231f20;
+            font-size: 1.8em;
+            font-weight: 800;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #fdc7c7;
+        }
+
+        th {
+            background: linear-gradient(93deg, #fdc7c7 60%, #b23b21 100%);
+            color: #231f20;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: #fff7e3;
+        }
+
+        .order-item-summary {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .delivery-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 700;
+        }
+
+        .status-pending {
+            background: #fff7e3;
+            color: #b23b21;
+            border: 1px solid #b23b21;
+        }
+
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #155724;
+        }
+
+        .status-dropdown {
+            padding: 6px 10px;
+            border: 2px solid #231f20;
+            border-radius: 6px;
+            background: #f9f9f9;
+            color: #231f20;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-family: inherit;
+        }
+
+        .status-dropdown:focus {
+            outline: none;
+            background: #fff;
+            border-color: #b23b21;
+        }
+
+        /* ===== ADDRESS LINK STYLING ===== */
+        .address-link {
+            color: #b23b21;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .address-link:hover {
+            color: #77230b;
+            border-bottom: 2px solid #b23b21;
+            transform: scale(1.03);
+        }
+
+        .address-link::before {
+            content: "🗺️";
+            font-size: 1.1em;
+        }
+
+        .phone-link {
+            color: #b23b21;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .phone-link:hover {
+            color: #77230b;
+            text-decoration: underline;
+        }
+
+        .phone-link::before {
+            content: "📞";
+            font-size: 1.1em;
+        }
+
+        #no-orders-msg {
+            display: none;
+            text-align: center;
+            color: #b23b21;
+            margin-top: 40px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px 12px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .logo-section {
+                width: 100%;
+            }
+
+            .user-info {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            .user-details {
+                text-align: left;
+            }
+
+            .restaurant-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .restaurant-btn {
+                width: 100%;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo-img">
+                    <img src="towins_logo.jpg" alt="Towin's Foodtrip Logo">
+                </div>
+                <div class="logo-info">
+                    <h1>Towin's Foodtrip</h1>
+                    <p>🏍️ Rider Dashboard</p>
+                </div>
+            </div>
+
+            <div class="user-info">
+                <div class="user-details">
+                    <h3 id="rider-name">Loading...</h3>
+                    <p id="rider-role">Rider</p>
+                </div>
+                <a href="logout.html" class="logout-btn">🚪 Logout</a>
+            </div>
+        </div>
+
+        <!-- ===== RESTAURANT LOCATION INFO ===== -->
+        <div class="restaurant-info">
+            <div>
+                <h3>🏪 Towin's Foodtrip (Starting Location)</h3>
+                <p>📍 75C4+3R Cabuyao City, Laguna</p>
+            </div>
+            <button class="restaurant-btn" onclick="openRestaurantLocation()">📍 View on Map</button>
+        </div>
+
+        <div class="stats" id="stats-container">
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <div class="number" id="stat-total">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <div class="number" id="stat-pending">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Delivered</h3>
+                <div class="number" id="stat-delivered">0</div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Delivery Address</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="rider-orders-body"></tbody>
+        </table>
+
+        <p id="no-orders-msg">No orders assigned to you.</p>
+    </div>
+
+    <script>
+        let allOrders = [];
+
+        // ===== RESTAURANT LOCATION (TOWIN'S FOODTRIP) =====
+        const RESTAURANT = {
+            name: "Towin's Foodtrip",
+            address: "75C4+3R Cabuyao City, Laguna",
+            lat: 14.349736,
+            lng: 121.008827,
+            plusCode: "75C4+3R Cabuyao City, Laguna",
+            mapsUrl: "https://maps.app.goo.gl/ZpPPZ2ubKgVnmLXa8"
+        };
+
+        // Load rider profile
+        function loadRiderProfile() {
+            fetch('check_session.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.logged_in && (data.role === 'rider' || data.is_rider == 1)) {
+                        document.getElementById('rider-name').textContent = data.name || 'Rider';
+                        document.getElementById('rider-role').textContent = data.role.toUpperCase();
+                    } else {
+                        window.location.href = 'login.html';
+                    }
+                })
+                .catch(error => {
+                    console.log('Error loading profile:', error);
+                    window.location.href = 'login.html';
+                });
+        }
+
+        // Load assigned orders
+        function loadRiderOrders() {
+            fetch('get_rider_order.php')
+                .then(resp => resp.json())
+                .then(orders => {
+                    allOrders = orders || [];
+                    renderOrders();
+                    updateStats();
+                })
+                .catch(err => {
+                    console.error('Error loading orders:', err);
+                });
+        }
+
+        // Render orders in single table
+        function renderOrders() {
+            const tbody = document.getElementById('rider-orders-body');
+            const noMsg = document.getElementById('no-orders-msg');
+
+            if (allOrders.length === 0) {
+                tbody.innerHTML = '';
+                noMsg.style.display = 'block';
+                return;
+            }
+
+            noMsg.style.display = 'none';
+            tbody.innerHTML = '';
+
+            allOrders.forEach(order => {
+                const items = order.order_items || [];
+                const itemSummary = items.length > 0
+                    ? items.map(it => `${it.name} x${it.quantity}`).join(', ')
+                    : 'No items';
+
+                const statusClass = `status-${order.delivery_status}`;
+
+                const row = `
+                    <tr>
+                        <td><strong>#${order.order_id}</strong></td>
+                        <td>${order.username || 'N/A'}</td>
+                        <td>
+                            <div class="order-item-summary">${itemSummary}</div>
+                        </td>
+                        <td>₱${parseFloat(order.total_amount).toFixed(2)}</td>
+                        <td>
+                            <a class="address-link" onclick="openGoogleDirections('${encodeURIComponent(order.delivery_address || 'N/A')}'); return false;">
+                                ${order.delivery_address || 'N/A'}
+                            </a>
+                        </td>
+                        <td>
+                            <a class="phone-link" href="tel:${order.phone_number}">
+                                ${order.phone_number || 'N/A'}
+                            </a>
+                        </td>
+                        <td>
+                            <select class="status-dropdown" onchange="updateOrderStatus(${order.order_id}, this.value)">
+                                <option value="assigned" ${order.delivery_status === 'assigned' ? 'selected' : ''}>Pending</option>
+                                <option value="delivered" ${order.delivery_status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+
+                tbody.innerHTML += row;
+            });
+        }
+
+        // ===== GOOGLE MAPS DIRECTIONS INTEGRATION (FIXED) =====
+        function openGoogleDirections(destinationAddress) {
+            if (destinationAddress === 'N/A' || !destinationAddress) {
+                alert('❌ Delivery address not available');
+                return;
+            }
+
+            // Decode the address
+            const decodedAddress = decodeURIComponent(destinationAddress);
+            
+            // Use Plus Code as origin - this is the most reliable method
+            // Format: https://www.google.com/maps/dir/ORIGIN/DESTINATION
+            const directionsUrl = `https://www.google.com/maps/dir/${encodeURIComponent(RESTAURANT.plusCode)}/${encodeURIComponent(decodedAddress)}`;
+            
+            console.log('🚗 Opening directions');
+            console.log('📍 From:', RESTAURANT.plusCode, '(Towin\'s Foodtrip)');
+            console.log('📍 To:', decodedAddress);
+            
+            // Open in new tab
+            window.open(directionsUrl, '_blank', 'width=800,height=600');
+        }
+
+        // ===== OPEN RESTAURANT LOCATION =====
+        function openRestaurantLocation() {
+            console.log('📍 Opening restaurant location:', RESTAURANT.address);
+            window.open(RESTAURANT.mapsUrl, '_blank');
+        }
+
+        // Update order status
+        function updateOrderStatus(orderId, newStatus) {
+            fetch('update_rider_order.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `order_id=${encodeURIComponent(orderId)}&status=${encodeURIComponent(newStatus)}`
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.success) {
+                    // Reload orders to reflect changes
+                    loadRiderOrders();
+                } else {
+                    alert('❌ Error: ' + (data.error || 'Failed to update'));
+                    // Reload to revert the dropdown
+                    loadRiderOrders();
+                }
+            })
+            .catch(err => {
+                alert('Error: ' + err);
+                loadRiderOrders();
+            });
+        }
+
+        // Update stats
+        function updateStats() {
+            const total = allOrders.length;
+            const pending = allOrders.filter(o => o.delivery_status === 'assigned').length;
+            const delivered = allOrders.filter(o => o.delivery_status === 'delivered').length;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-pending').textContent = pending;
+            document.getElementById('stat-delivered').textContent = delivered;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRiderProfile();
+            loadRiderOrders();
+            // Refresh every 3 seconds
+            setInterval(loadRiderOrders, 3000);
+        });
+    </script>
+</body>
+</html>
